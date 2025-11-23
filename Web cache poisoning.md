@@ -1,4 +1,4 @@
-bpara enterearte de lo que es el caché y demás mirate los apuntes de web caché deception
+Para enterearte de lo que es el caché y demás mirarlos apuntes de web caché deception
 
 ## PASOS
 
