@@ -10,7 +10,7 @@ Buscamos 3 cosas :
 
 Ejemplo:
 
-Imaginesmos que esta es la request que se hace para cambiar el correo de un usuario:
+Imaginemos que esta es la request que se hace para cambiar el correo de un usuario:
 
 ```
 POST /email/change HTTP/1.1 
@@ -39,7 +39,7 @@ Con esto el atacante podría crear una web maliciosa como esta :
 ```
 
 
-Cuando el usuario entre a esta web maliciosa, el form se autocompletará y enviará a la web vulnerable cambiando el email a `pwned@evil-user.net` y si el usuario está logeado en la web vulnerable entonces el buscador incluirá las cookies automaticamente haciendo que la acción se ejecute sin problema. Si no te da la gana escribir el html tú , puedes enviar la request a la herramienta CSRF PoC de burp click derecho -> engagement tools-> csrf PoC
+Cuando el usuario entre a esta web maliciosa, el form se autocompletará y enviará a la web vulnerable cambiando el email a `pwned@evil-user.net` y si el usuario está logueado en la web vulnerable entonces el buscador incluirá las cookies automaticamente haciendo que la acción se ejecute sin problema. Si no te da la gana escribir el html tú , puedes enviar la request a la herramienta CSRF PoC de burp click derecho -> engagement tools-> csrf PoC
 
 
 ## Common flaws in CSRF token validation
@@ -51,7 +51,7 @@ Host: vulnerable-website.com
 Cookie: session=2yQIDcpia41WrATfjPqvm9tOkDvkMvLm
 ```
 2. Si eliminas el csrf token entero hay veces que te deja 
-3. No se comprueba si el token es de la persona que hace la request, simplemente la web tiene un monton de tokens y si el token que pasas es uno de esos pues lo acepta asi que puedes pillar el token que te asigna la web y usarlo con otros usuarios
+3. No se comprueba si el token es de la persona que hace la request, simplemente la web tiene un monton de tokens y si el token que pasas es uno de esos pues lo acepta así que puedes pillar el token que te asigna la web y usarlo con otros usuarios
 4. Hay veces que el token si está ligado a una cookie pero puede que no sea la cookie que se encarga de tu sesión
 ```
 POST /email/change HTTP/1.1 
@@ -63,12 +63,13 @@ Cookie: session=pSJYSScWKpmC60LpFOAHKixuFuM4uXWF; csrfKey=rZHCnSzEp8dbI6atzagGoS
 
 csrf=RhV7yQDO0xcq9gLEah2WVbmuFqyOq7tY&email=wiener@normal-user.com
 ```
-en este caso la csrfKey es la cookie que tiene ligado el token csrf normal, entonces si hacemos un csrf podríamos usar nuestra csrfKey y así reutilizar el token csrf bypasseando la proteccion
+en este caso la csrfKey es la cookie que tiene ligado el token csrf normal, entonces si hacemos un csrf podríamos usar nuestra csrfKey y así reutilizar el token csrf bypasseando la protección
 
 exploit :  /?search=test%0d%0aSet-Cookie:csrfKey%3dXuijnG5sGVFUlz3fzcPFOc76HcvzTsSX%3b%20SameSite=None 
 
 ALERT!= esto hacerlo con img no con iframe que a veces los buscadores lo bloquean y poner same site none 
-5.  licados, y por ende si se puede inyectar una cookie a un usuario entonces podremos usar esa cookie como token csrf : 
+
+5. Tokens duplicados, y por ende si se puede inyectar una cookie a un usuario entonces podremos usar esa cookie como token csrf : 
 ```
 POST /email/change HTTP/1.1 
 Host: vulnerable-website.com 
@@ -82,7 +83,7 @@ csrf=R8ov2YBfTYmzFyjit8o2hKBuoIjXXVpa&email=wiener@normal-user.com
 
 ## Bypassing same site cookie restriction
 
-algunos buscadores usan same site cookie restriction que son basicamente que el buscador no deja incluir cookies de webs de terceros , estas politicas pueden ser de tres tipos:
+Algunas webs usan same site cookie restriction que son básicamente que el buscador no deja incluir cookies de webs de terceros , estas politicas pueden ser de tres tipos:
 
 1. Strict -> solo incluye cookies si se lo pide la misma url
 2. Lax -> solo si es con GET y solo si es por accion del usuario como haciendo click en un link
@@ -138,7 +139,8 @@ setTimeout(changeEmail, 5000);
 
 ```
 
-primero le cambia las cookies haciendo que visite : /social-login , este endpoint te redirige a otro sitio y cambia las cookies, asi que ponemos un tiempo prudente de espera antes de submitear el nuevo email.
+primero le cambia las cookies haciendo que visite : /social-login , este endpoint te redirige a otro sitio y cambia las cookies, así que ponemos un tiempo prudente de espera antes de submitear el nuevo email.
+
 ### Strict
 
 Si consigues meter un client-side redirect te dejará hacer CSRF puesto que el buscador no lo interpreta como un redirect normal, esto también se podria usar si podemos hacer que la cookie de alguien cambie dandonos estos 120 segundos para atacar
@@ -169,12 +171,13 @@ esto sera efectivo si en las respuestas de la web vemos : `Referrer-Policy: unsa
 Así quedaría el exploit server :
 
 
-![[Pasted image 20250922201425.png]]
+<img width="1017" height="547" alt="image" src="https://github.com/user-attachments/assets/bf79aab7-39d9-4c73-adb5-aa2e2a3ba110" />
 
-la funcion history.pushState es para que en refer salga 
+
+la función history.pushState es para que en refer salga 
 ```
 Refer:exploit-server/?vulnerable-web
 ```
 
 y luego recordar que en el apartado de HEAD hay que poner `Referrer-Policy: unsafe-url` 
-para que el ataque sea efectivo
+para que el ataque sea efectivo.
