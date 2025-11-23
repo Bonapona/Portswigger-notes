@@ -312,8 +312,7 @@ En principio HTTP/2 es seguro a HTTP request smuggling pero si una web usa HTTP/
 
 #### H2.CL vulnerabilities
 
-Se ve que HTTP/2 no usa el content-length así que le <img width="515" height="519" alt="image" src="https://github.com/user-attachments/assets/aec71510-02a2-4a89-8a25-2f58819621b6" />
-podemos meter ese header que luego se ejecutara con HTTP/1 en el downgrading
+Se ve que HTTP/2 no usa el content-length así que le podemos meter ese header que luego se ejecutara con HTTP/1 en el downgrading
 
 ```
 POST /example HTTP/2 
@@ -330,7 +329,7 @@ x=1GET / H
 
 #### H2.TE vulnerabilities
 
-La cabecera de TE no la acepta HTTP/2 pero si el mecanismo del front - end no furula bien y la metes entonces puedes explotarla : 
+La cabecera de TE no la acepta HTTP/2 pero si el mecanismo del front-end no furula bien y la metes entonces puedes explotarla : 
 
 ```
 POST /example HTTP/2
@@ -347,7 +346,7 @@ Foo: bar
 
 #### Response queue poisoning 
 
-Basicamente el front end pilla las request y el back - end las procesa y las devuelve a su destino, pero si nosotros hacemos smuggling pero no para modificar la request de alguien si no que hacemos que nuestra request smuggleada sea pillada por el backend como una request entera, entonces las request que yo meta se pondra a la cola de procesarse por el back end pero claro el back end dira coño tengo 4 request y 3 personas (porque nuestra request es doble) asi que le enviará la response a quien le de la gana y con suerte a nosotros
+Basicamente el front end pilla las request y el back-end las procesa y las devuelve a su destino, pero si nosotros hacemos smuggling pero no para modificar la request de alguien si no que hacemos que nuestra request smuggleada sea pillada por el backend como una request entera, entonces las request que yo meta se pondrá a la cola de procesarse por el back end pero claro el back end dira coño tengo 4 request y 3 personas (porque nuestra request es doble) así que le enviará la response a quien le de la gana y con suerte a nosotros
 
 Ejemplo (back-end TE)
 
@@ -387,7 +386,8 @@ Host: vulnerable-website.com\r\n
 \r\n
 ```
 
-tambien se puede hacer con H2, para que funcione hay que hacer una pool de 1 request cada 800 y quitarle en settings update content length del intruder
+También se puede hacer con H2, para que funcione hay que hacer una pool de 1 request cada 800 y quitarle en settings update content length del intruder
+
 #### Request smuggling via CRLF injection
 
 Even if websites take steps to prevent basic H2.CL or H2.TE attacks, such as validating the `content-length` or stripping any `transfer-encoding` headers, HTTP/2's binary format enables some novel ways to bypass these kinds of front-end measures.
@@ -416,7 +416,7 @@ Host: YOUR-LAB-ID.web-security-academy.net
 
 #### CL.0 
 
-cuando el back-end no procesa bien el content-length y lo parsea como si fuese content-length: 0, para confirmarlo haz una request con otra request dentro que haga que salte un 404: 
+Cuando el back-end no procesa bien el content-length y lo parsea como si fuese content-length: 0, para confirmarlo haz una request con otra request dentro que haga que salte un 404: 
 
 ```
 POST /vulnerable-endpoint HTTP/1.1 
@@ -431,7 +431,7 @@ website.com
 ```
 
 
-Para que sea efectivo necesitamos un endpoint que haga un POST a un recurso estático, ademáse necesitamos los siguientes headers :
+Para que sea efectivo necesitamos un endpoint que haga un POST a un recurso estático, además necesitamos los siguientes headers :
 
 ```
 Connection: keep-alive
@@ -442,7 +442,7 @@ Burp lo ingorara a menos que habilitemos esta opción en el repeater:
 <img width="726" height="518" alt="image" src="https://github.com/user-attachments/assets/925dda4a-80a9-4ca2-a503-1d3047b158de" />
 
 
-luego le das al + de repeater y añades un nuevo grupo al que añadirás la request maliciosa y la normal a la pagina principal :
+Luego le das al + de repeater y añades un nuevo grupo al que añadirás la request maliciosa y la normal a la pagina principal :
 
 <img width="247" height="135" alt="image" src="https://github.com/user-attachments/assets/906da844-c1db-4e0b-a0c6-1035c8a9a48d" />
 
