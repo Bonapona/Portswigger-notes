@@ -8,7 +8,8 @@ Para enterearte de lo que es el caché y demás mirarlos apuntes de web caché d
 vemos que tenemos un hit en cache por ende esta request ya estaba cacheada
 
 2.ver si en la request hay algún parametro que sea parte de la llave del caché
-![[Pasted image 20250823190513.png]]
+<img width="1137" height="334" alt="image" src="https://github.com/user-attachments/assets/15e28ebd-3bde-4d32-b22c-51eac7d8dd01" />
+
 esto lo sabremos si cuando cambiamos ese parametro y lo enviamos el cache nos devuelve miss, diciendonos que esa llave cache no coincidía con ninguna 
 
 3.Ver alguna valor de la request que se vea reflejada en la respuesta y que no sea parte de la llave cache, esto ultimo es porque si conseguimos meter un XSS a una una copia de caché lo que queremos es que se guarde en la página principal no en la copia del caché especifica nuestra 
