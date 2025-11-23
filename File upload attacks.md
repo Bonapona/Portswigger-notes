@@ -10,7 +10,7 @@ Aquí solo añadiré lo que no mencionan en la certificacion CWES de HTB
 ```
 ## Cambio de cofiguración del server
 
-Si hay algun archivo de configuración como `/etc/apache2/apache2.conf` y antes hubieramos conseguido alguna otra vulnerabilidad podríamos escribir en ese archvio que una extensión nieva se interprete como PHP y así inyectar la shell
+Si hay algun archivo de configuración como `/etc/apache2/apache2.conf` y antes hubieramos conseguido alguna otra vulnerabilidad podríamos escribir en ese archvio que una extensión nueva se interprete como PHP y así inyectar la shell
 
 ## Obfuscating file extensions
 
@@ -43,7 +43,8 @@ Si todo lo anterior no furula podríamos intentar hacer una imagen donde en la m
 exiftool -Comment="<?php echo 'START ' . file_get_contents('/home/carlos/secret') . ' END'; ?>" <YOUR-INPUT-IMAGE>.jpg -o polyglot.php
 ```
 
-basicamente le mete la webshell en los metadatos y luego el output lo llama polyglot.php
+básicamente le mete la webshell en los metadatos y luego el output lo llama polyglot.php
+
 ## Uploading malicious client-side scripts
 
 Si no podemos conseguir RCE podríamos hacer que en la imagen meter un `<script>` que haga un XSS -> si nos deja subir archivos HTML o imágenes SVG
