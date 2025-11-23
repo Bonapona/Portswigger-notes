@@ -1,6 +1,7 @@
 
 
-![[Pasted image 20250912191206.png]]
+![Uploading image.png…]()
+
 ## Que cojones es esto
 
 ![[Pasted image 20250906191420.png]]
