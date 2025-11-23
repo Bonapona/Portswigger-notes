@@ -445,7 +445,8 @@ Burp lo ingorara a menos que habilitemos esta opción en el repeater:
 
 luego le das al + de repeater y añades un nuevo grupo al que añadirás la request maliciosa y la normal a la pagina principal :
 
-![[Pasted image 20250915212142.png]]
+<img width="247" height="135" alt="image" src="https://github.com/user-attachments/assets/906da844-c1db-4e0b-a0c6-1035c8a9a48d" />
+
 
 Por último en la pestaña de send hay que mandarlo con single connection : 
 
