@@ -1,6 +1,3 @@
-
-
-## Basic bypasses
 ### Non-Recursive Path Traversal Filters
 
 Es un filtro que elimina ../ pero de forma no recursiva asi que se puede bypassear asi :
