@@ -17,7 +17,8 @@ esto lo sabremos si cuando cambiamos ese parametro y lo enviamos el cache nos de
  En este laboratorio había que buscar algún unkeyed input(input que no forme parte de la llave caché) con paraminer, en el caso de este laboratorio hay un header válido que es `x-forwarded-host`, este header no se usa para hacer la cache key , pero si nosotros creamos una url que haga que la request se cachee podríamos añadir el `x-forwarded-host: cosa maliciosa` haciendo que la cosa maliciosa se ejecute
 
 4.Probar donde se ve reflejado el unkeyed header en la web.
-![[Pasted image 20250823191935.png]]
+<img width="783" height="707" alt="image" src="https://github.com/user-attachments/assets/edf88762-cf8f-4057-a826-cc00217de62e" />
+
 en este caso vemos que se refleja en un script, además vemos que completa la ruta de /resources/js/tracking.js
 5.Exploit server
 ![[Pasted image 20250823192310.png]]
