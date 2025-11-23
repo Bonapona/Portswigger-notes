@@ -70,7 +70,8 @@ Con todo esto la explotación se basaría en saber donde se almacena informació
 
 en este laboratorio vemos que al meter nuestro usuario y contraseña nos da una API key gracias al endpoint  /my-account si cambiamos ese endpoint a /my-account/caca.js vemos que la respeusta es la misma y encima está cacheada : 
 
-![[Pasted image 20250820222709.png]]
+<img width="1533" height="356" alt="image" src="https://github.com/user-attachments/assets/c4f4168e-2289-4eb4-b8e8-29f9a2082281" />
+
 
 vemos que esthttp://example.com/path/resource/param1/param2￼￼
 á en estado miss por ende el contenido aparentemente estático está ahora guardado en cache y si volvemos a hacer esa misma petición veremos que ahora el cache dira hit por ende la respuesta estará en cache, con esto lo que queremos hacer es que un usuario autenticado ejecute la url que nosotros hemos hecho para que sus datos se guarden en cache y que al acceder nosotros a esa url el cache nos devuelva los datos del usuario, para ello haremos un exploit en el exploit server que nos deja portswinger para poder craftear una url nueva que se le mandara a un usuario para poder nosotros pillar su API key :
