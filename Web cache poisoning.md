@@ -21,7 +21,8 @@ esto lo sabremos si cuando cambiamos ese parametro y lo enviamos el cache nos de
 
 en este caso vemos que se refleja en un script, además vemos que completa la ruta de /resources/js/tracking.js
 5.Exploit server
-![[Pasted image 20250823192310.png]]
+<img width="709" height="842" alt="image" src="https://github.com/user-attachments/assets/2c06ace9-dab9-4d8e-a04a-91e5fe444f72" />
+
 se le cambia el file a ` /resources/js/tracking.js` porque la request hace de normal una petición en el script a 
 ```
 <script src="//victima.com/resources/js/tracking.js"></script>
