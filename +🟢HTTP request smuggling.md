@@ -1,6 +1,5 @@
+<img width="1776" height="834" alt="image" src="https://github.com/user-attachments/assets/ec61fe41-7641-4373-a88c-da3ef9d23d63" />
 
-
-![Uploading image.png…]()
 
 ## Que cojones es esto
 
