@@ -450,4 +450,5 @@ luego le das al + de repeater y añades un nuevo grupo al que añadirás la requ
 
 Por último en la pestaña de send hay que mandarlo con single connection : 
 
-![[Pasted image 20250915212259.png]]
+<img width="720" height="322" alt="image" src="https://github.com/user-attachments/assets/1836cfcc-58f9-47dd-baf1-3817afebd0a3" />
+
