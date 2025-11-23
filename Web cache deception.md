@@ -1,4 +1,3 @@
-
 ## Web caches
 
 Web caché es un sistema por el cual cuando un usuario hace una request a un recurso estático la request pasa primero por el servidor caché que verifica si tiene alguna copia del recurso pedido(cache hit), si no la tiene(cache miss) entonces manda la petición al servidor y lo que devuelve se guarda en el caché (donde se guarda lo decide varias reglas pre-configuradas) y luego lo devuelve al usuario
