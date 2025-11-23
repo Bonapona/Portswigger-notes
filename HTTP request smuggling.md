@@ -440,7 +440,8 @@ Connection: keep-alive
 
 Burp lo ingorara a menos que habilitemos esta opción en el repeater:
 
-![[Pasted image 20250915212029.png]]
+<img width="726" height="518" alt="image" src="https://github.com/user-attachments/assets/925dda4a-80a9-4ca2-a503-1d3047b158de" />
+
 
 luego le das al + de repeater y añades un nuevo grupo al que añadirás la request maliciosa y la normal a la pagina principal :
 
