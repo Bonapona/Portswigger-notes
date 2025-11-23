@@ -1,4 +1,3 @@
-(puede salir en el refer header)
 ## Bypassing SSRF defenses
 
 ### SSRF with blacklist-based input filters
@@ -7,13 +6,11 @@ Si una web no te deja hacer en un SSRF  a /admin o 127.0.0.1 o localhost :
 
 -Si no deja 127.0.0.1 o localhost -> usa `2130706433`, `017700000001` o `127.1`(otras representaciones de la ip 127.0.0.1)
 
--Sino funciona puedes crear tu propio dominio que resuelva a la ip 127.0.0.1 con `spoofed.burpcollaborator.net`
+-Si no funciona puedes crear tu propio dominio que resuelva a la ip 127.0.0.1 con `spoofed.burpcollaborator.net`
 
 -Si no deja /admin puedes doble url-encodear una letra
 
 ### SSRF with whitelist-based input filters
-
-Esto es expert, no entra 
 
 Si la web te deja hacer SSRF cuando hay ciertas palabras o hosts:
 
@@ -44,7 +41,7 @@ stockApi=http://weliketoshop.net/product/nextProduct?currentProductId=6&path=htt
 
 ## Blind SSRF vulnerabilities
 
-Blind es cuando no vemos el resultado de la query enviada, por ende la mejor forma de confirmar que es vulnerable es con ataques OAST, basicamente haremos que haga una petición a nuestro buro collaborator y ver si le llega algo  
+Blind es cuando no vemos el resultado de la query enviada, por ende la mejor forma de confirmar que es vulnerable es con ataques OAST, básicamente haremos que haga una petición a nuestro burp collaborator y ver si le llega algo  
 
 ## Finding hidden attack surface for SSRF vulnerabilities
 
