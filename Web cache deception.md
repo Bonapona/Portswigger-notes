@@ -2,8 +2,8 @@
 ## Web caches
 
 Web cache es un sistema por el cual cuando un usuario hace una request a un recurso estático la request pasa primero por el cache y verifica si tiene alguna copia del recurso pedido(cache hit), si no la tiene(cache miss) entonces manda la petición al servidor y lo que devuelve se guarda en el cache (donde se guarda lo decide varias reglas preconfiguradas) y luego lo devuelve al usuario
+<img width="1256" height="333" alt="image" src="https://github.com/user-attachments/assets/457c15f3-5944-4660-970b-c8308bb4c4ae" />
 
-![[Pasted image 20250819114333.png]]
 
 
 ### Cache rules
