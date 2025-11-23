@@ -220,10 +220,6 @@ Foo: xGET /home HTTP/1.1 Host: vulnerable-website.com
 Aquí el front-end ve dos request hechas en /home así que las pasa al backend, entonces el back-end confía en lo que el front - end le pasa pero el ve una request a /home y otra a /admin asi que procesa las dos sin complicaciones 
 
 
-#### Revealing front-end request rewriting
-
-Ni puta idea : D
-
 #### Bypassing client authentication
 
 ```
