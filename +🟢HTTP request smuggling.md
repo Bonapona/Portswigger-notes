@@ -313,7 +313,8 @@ En principio HTTP/2 es seguro a HTTP request smuggling pero si una web usa HTTP/
 
 #### H2.CL vulnerabilities
 
- se ve que HTTP/2 no usa el content-length así que le podemos meter ese header que luego se ejecutara con HTTP/1 en el downgrading
+ se ve que HTTP/2 no usa el content-length así que le <img width="515" height="519" alt="image" src="https://github.com/user-attachments/assets/aec71510-02a2-4a89-8a25-2f58819621b6" />
+podemos meter ese header que luego se ejecutara con HTTP/1 en el downgrading
 
 ```
 POST /example HTTP/2 
@@ -397,7 +398,10 @@ Si el front-end no pilla `\n` como salto de línea pero el back-end si podríamo
 
 `Foo: bar\nTransfer-Encoding: chunked`
 
-esto lo añadiremos de la siguiente manera : ![[Pasted image 20250914170242.png]]
+esto lo añadiremos de la siguiente manera : 
+
+<img width="515" height="519" alt="image" src="https://github.com/user-attachments/assets/c87d94f9-1c97-4d8f-884a-f05ff60767cf" />
+
 
 
 #### HTTP/2 request splitting
