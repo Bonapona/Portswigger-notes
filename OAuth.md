@@ -1,4 +1,3 @@
-Si no e OpenId probablemente sea algo con redirect
 ## Recon
 
 Cuando tengamos un endpoint que usa el OAuth deberemos hacer un GET a estos sitios para obtener toda la info posible : 
