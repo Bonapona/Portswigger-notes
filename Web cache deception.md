@@ -65,7 +65,7 @@ Burp Scanner automatically detects web cache deception vulnerabilities that are 
 
 Con todo esto la explotación se basaría en saber donde se almacena información sensible de un usuario autenticado cacheada y con eso para hacer a otra persona que primero guarde en cache esa info sensible y que nosotros podamos recuperarla:
 
-![[Pasted image 20250820222345.png]]
+<img width="1914" height="914" alt="image" src="https://github.com/user-attachments/assets/56bae085-e3b3-4faa-a227-e4a3d8a43663" />
 
 
 en este laboratorio vemos que al meter nuestro usuario y contraseña nos da una API key gracias al endpoint  /my-account si cambiamos ese endpoint a /my-account/caca.js vemos que la respeusta es la misma y encima está cacheada : 
