@@ -441,7 +441,6 @@ Burp lo ingorara a menos que habilitemos esta opción en el repeater:
 
 <img width="726" height="518" alt="image" src="https://github.com/user-attachments/assets/925dda4a-80a9-4ca2-a503-1d3047b158de" />
 
-
 Luego le das al + de repeater y añades un nuevo grupo al que añadirás la request maliciosa y la normal a la pagina principal :
 
 <img width="247" height="135" alt="image" src="https://github.com/user-attachments/assets/906da844-c1db-4e0b-a0c6-1035c8a9a48d" />
