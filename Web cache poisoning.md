@@ -30,11 +30,12 @@ se le cambia el file a ` /resources/js/tracking.js` porque la request hace de no
 pero como gracias a X-Forwarded-Host podemos elegir que va en victima.com pues ponemos nuestro exploit server donde en /resources/js/tracking.js tendremos un XSS .
 
 Así que primero hacemos que en mi peticion a ?caca=123 el script apunte a mi servidor
-<img width="1049" height="686" alt="image" src="https://github.com/user-attachments/assets/5e8f3665-74a7-4461-9034-06230addc62f" />
+<img width="1099" height="658" alt="image" src="https://github.com/user-attachments/assets/995264fb-7c25-44fe-8b7f-62c8bf347a2a" />
 
 de esta forma al acceder a /?caca=123 el XSS se ejecuta
 
-![[Pasted image 20250823193855.png]]
+<img width="1049" height="686" alt="image" src="https://github.com/user-attachments/assets/5e8f3665-74a7-4461-9034-06230addc62f" />
+
 una vez probado esto en ?caca=123 ahora eliminaremos esa query para que se haga en el home de la web 
 
 
