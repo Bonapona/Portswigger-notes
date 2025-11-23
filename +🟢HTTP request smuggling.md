@@ -7,7 +7,8 @@
 
 Basicamente este tipo de arquitectura pilla todas las peticiones que se le hacen al front-end y las envía a una misma conexión del backend puesto que esto es más eficiente y el backend se encarga de separar esas requests.
 
-![[Pasted image 20250906191648.png]]
+<img width="923" height="474" alt="image" src="https://github.com/user-attachments/assets/3765175d-7238-4db7-a90f-22b84bd4b486" />
+
 
 El ataque consiste en que nosotros enviamos una request ambigua que se procese rarillamente por el backend, en el ataque de la imagen lo que se hace es conseguir que el final de nuestra requests sea interpretado como el principio de la request de otro usuario.
 
