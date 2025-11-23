@@ -3,7 +3,8 @@ Para enterearte de lo que es el caché y demás mirarlos apuntes de web caché d
 ## PASOS
 
 1.ver alguna request en la web que sea cacheada
-![[Pasted image 20250823190401.png]]
+<img width="1196" height="415" alt="image" src="https://github.com/user-attachments/assets/96fd1a71-f739-4154-abef-0bfa250727b8" />
+
 vemos que tenemos un hit en cache por ende esta request ya estaba cacheada
 
 2.ver si en la request hay algún parametro que sea parte de la llave del caché
