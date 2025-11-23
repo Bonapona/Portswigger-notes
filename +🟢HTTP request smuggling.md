@@ -3,7 +3,8 @@
 
 ## Que cojones es esto
 
-![[Pasted image 20250906191420.png]]
+<img width="835" height="419" alt="image" src="https://github.com/user-attachments/assets/122b9fc3-7ecc-4452-ac6e-2d6b9c1c8876" />
+
 Basicamente este tipo de arquitectura pilla todas las peticiones que se le hacen al front-end y las envía a una misma conexión del backend puesto que esto es más eficiente y el backend se encarga de separar esas requests.
 
 ![[Pasted image 20250906191648.png]]
