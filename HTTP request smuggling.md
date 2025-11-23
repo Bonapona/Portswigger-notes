@@ -5,7 +5,7 @@
 
 <img width="835" height="419" alt="image" src="https://github.com/user-attachments/assets/122b9fc3-7ecc-4452-ac6e-2d6b9c1c8876" />
 
-Basicamente este tipo de arquitectura pilla todas las peticiones que se le hacen al front-end y las envía a una misma conexión del backend puesto que esto es más eficiente y el backend se encarga de separar esas requests.
+Básicamente este tipo de arquitectura(HTTP/1) pilla todas las peticiones que se le hacen al front-end y las envía a una misma conexión del backend puesto que esto es más eficiente y el backend se encarga de separar esas requests.
 
 <img width="923" height="474" alt="image" src="https://github.com/user-attachments/assets/3765175d-7238-4db7-a90f-22b84bd4b486" />
 
@@ -14,12 +14,12 @@ El ataque consiste en que nosotros enviamos una request ambigua que se procese r
 
 ## Porque es vulnerable ? 
 
-Esta vulnerabilidad sale normalmente por como se comporta HTTP/1 y su manera de diferenciar donde empieza y donde acaba una request , ya que usa los headers : 
-`Content-Length` `Transfer-Encoding` 
+Esta vulnerabilidad aparece normalmente por como se comporta HTTP/1 y su manera de diferenciar donde empieza y donde acaba una request , ya que usa los headers : 
+`Content-Length` y/o `Transfer-Encoding` 
 
 El de content length dice cuanto pesa el cuerpo de la request en bytes.
 
-El Transfer-Encoding header basicamente para decir si el body usa chunked encoding(si usa mas de un bloque de info) la sintaxis de esrto es primero el numero de bytes que ocupa en hexadecimal y en la siguiente linea el contenido y luego terminado con el size de 0 final
+El Transfer-Encoding header basicamente para decir si el body usa chunked encoding(si usa mas de un bloque de info) la sintaxis de esto es primero el numero de bytes que ocupa en hexadecimal y en la siguiente linea el contenido y luego terminado con el size de 0 final(y con sus CRLF correspondientes)
 
 ```
 POST /search HTTP/1.1 
@@ -37,11 +37,11 @@ Se puede dar que ambos headers están en la request y para que no pete el backen
 2. Otros que sí los soportan pueden no procesar `Transfer-Encoding` si se ofusca 
 Si el back-end y front-end se comportan diferente en relación a `Transfer-Encoding` podríamos ocasionar un HTTP request smuggling
 
-Los ataques suelen ser poniendo ambos headers : `Content-Length`  `Transfer-Encoding` pa que el back-end y el front-end lo procesen de forma distinta, esto se hace según como esos dos servidores procesas las cosas :
+Los ataques suelen ser poniendo ambos headers : `Content-Length`  `Transfer-Encoding` para que el back-end y el front-end lo procesen de forma distinta, esto se hace según como esos dos servidores procesas las cosas :
 
 3. CL.TE -> front-end usa `Content-Length` y back-end usa `Transfer-Encoding`
 4. TE.CL -> justo al contrario de CL.TE
-5. TE.TE -> back-end y front-end usan `Transfer-Encoding` pero uno de los dos puede ser inducido pa no procesarlo
+5. TE.TE -> back-end y front-end usan `Transfer-Encoding` pero uno de los dos puede ser inducido a no procesarlo
 
 
 ## CL.TE
@@ -60,7 +60,6 @@ Transfer-Encoding: chunked
 ```
 
 Front-end -> usa content length y por ende envía procesa todos los 13 bytes de la request
-
 Back-end -> usa transfer encoding y la request le dice que esta chunked , lee el byte en hexadecimal que dice cuantos bytes pesa el body y como es 0 asume que no hay body y se termina la request, haciendo que `SMUGGLED` no sea procesado en esa request y se ponga como principio de la siguiente request
 
 ### Confirmación
@@ -148,14 +147,14 @@ Content-Type: application/x-www-form-urlencoded
 Content-Length: 4 
 Transfer-Encoding: chunked 
 
-	7c
-	GET /404 HTTP/1.1 
-	Host: vulnerable-website.com 
-	Content-Type: application/x-www-form-urlencoded 
-	Content-Length: 144 
+7c
+GET /404 HTTP/1.1 
+Host: vulnerable-website.com 
+Content-Type: application/x-www-form-urlencoded 
+Content-Length: 144 
 	
-	x= 
-	0
+x= 
+0
 ```
 
 
@@ -202,7 +201,7 @@ Así el backend petara y preferirá usar el header de content-lenght
 
 #### Using HTTP request smuggling to bypass front-end security controls
 
-Imaginemos que la web tiene un /admin que solo dará la request al backend si el usuario está autenticado , pues podríamos astacar ese funcionamineto de esta manera : 
+Imaginemos que la web tiene un /admin que solo dará la request al backend si el usuario está autenticado , pues podríamos atacar ese funcionamineto de esta manera : 
 
 ```
 POST /home HTTP/1.1 
@@ -217,7 +216,7 @@ GET /admin HTTP/1.1 Host: vulnerable-website.com
 Foo: xGET /home HTTP/1.1 Host: vulnerable-website.com
 ```
 
-Aquí el front-end ve dos request hechas en /home así que las pasa al backend, entonces el back-end confía en lo que el front - end le pasa pero el ve una request a /home y otra a /admin asi que procesa las dos sin complicaciones 
+Aquí el front-end ve dos request hechas en /home así que las pasa al backend, entonces el back-end confía en lo que el front-end le pasa, pero el ve una request a /home y otra a /admin asi que procesa las dos sin complicaciones 
 
 
 #### Bypassing client authentication
@@ -309,11 +308,11 @@ Foo: XGET /static/include.js HTTP/1.1 Host: vulnerable-website.com
 
 ## Advanced request smuggling
 
-En principio HTTP/2 es seguro a HTTP request smuggling pero si una web usa HTTP/2 para  el front-end y luego para el back-end hace un down grading a HTTP/1 entonces puede ser vulnerable 
+En principio HTTP/2 es seguro a HTTP request smuggling pero si una web usa HTTP/2 para el front-end y luego para el back-end hace un down grading a HTTP/1 entonces puede ser vulnerable 
 
 #### H2.CL vulnerabilities
 
- se ve que HTTP/2 no usa el content-length así que le <img width="515" height="519" alt="image" src="https://github.com/user-attachments/assets/aec71510-02a2-4a89-8a25-2f58819621b6" />
+Se ve que HTTP/2 no usa el content-length así que le <img width="515" height="519" alt="image" src="https://github.com/user-attachments/assets/aec71510-02a2-4a89-8a25-2f58819621b6" />
 podemos meter ese header que luego se ejecutara con HTTP/1 en el downgrading
 
 ```
