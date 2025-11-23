@@ -1,6 +1,6 @@
 
 ## DOM XSS using web messages
-los web messages es una forma para que dos ventanas se comuniquen entre si, usan la funcion `window` y escuchan a mensajes que usan postMessage y lo que escuche lo pondrá en la pantalla, por eso es vulnerable a XSS
+Los web messages es una forma para que dos ventanas se comuniquen entre si, usan la funcion `window` y escuchan a mensajes que usan postMessage y lo que escuche lo pondrá en la pantalla, por eso es vulnerable a XSS
 7.
 ```
 window.addEventListener('message', function(e) {
