@@ -1,3 +1,4 @@
+# GraphQL API vulns
 
 ## Encontrar un endpoint de GraphQL
 
@@ -260,7 +261,7 @@ query isValidDiscount($code: Int) {
 
 Ejemplo en burp
 
-![[Pasted image 20251209232703.png]]
+<img width="598" height="583" alt="image" src="https://github.com/user-attachments/assets/bcf8c40d-9a51-4259-8a08-416280302dbc" />
 
 ## GraphQL CSRF
 
@@ -271,9 +272,12 @@ Ejemplo:
 
 1. Cambiar el content-type
 2. Copiar el query
-![[Pasted image 20251209234130.png]]
 
- 3. Crear un campo "query" donde se mete todo el query de GraphQL encodeado en URL y otro campo  "variables"  con la parte de las variables de GraphQL
-![[Pasted image 20251209235026.png]]
-4. Generar el CSRF PoC y listo
+<img width="567" height="568" alt="image" src="https://github.com/user-attachments/assets/0f4a11d4-1189-4ebf-9691-7b41db1fd4d5" />
+
+3. Crear un campo "query" donde se mete todo el query de GraphQL encodeado en URL y otro campo  "variables"  con la parte de las variables de GraphQL
+
+<img width="695" height="449" alt="image" src="https://github.com/user-attachments/assets/d82bb23b-85d8-4306-b016-bb8145f996e9" />
+
+5. Generar el CSRF PoC y listo
 
