@@ -135,17 +135,29 @@ Idealmente un servidor solo usará una whitelist de public keys para verificar e
 1.
 
 <img width="118" height="58" alt="image" src="https://github.com/user-attachments/assets/7c08c6c1-f47d-4ee6-b16f-a6e6c0eca6ad" />
+
 2.
+
 <img width="160" height="36" alt="image" src="https://github.com/user-attachments/assets/a3f6e750-2b21-41f5-95b9-9183cbeb35fe" />
+
 3.Darle a generate y ok
+
 <img width="512" height="543" alt="image" src="https://github.com/user-attachments/assets/7aa9f014-5016-41e4-8cf5-89395e515698" />
+
 4.
+
 <img width="92" height="25" alt="image" src="https://github.com/user-attachments/assets/1fedaad7-71b8-4a7e-b83c-6c7fc1fac14d" />
+
 5.
+
 <img width="476" height="52" alt="image" src="https://github.com/user-attachments/assets/bf3dc300-6e14-4aaa-b94e-241912231195" />
+
 6.Attack ->embebed jwk
+
 <img width="82" height="30" alt="image" src="https://github.com/user-attachments/assets/0ac9885b-e54e-4de3-b1ea-6a5c5115cc1d" />
+
 7.ok
+
 <img width="486" height="243" alt="image" src="https://github.com/user-attachments/assets/f9f0c0c4-2e07-4fbd-b15c-1aa39f0c70d6" />
 
 Y así conseguimos un JWT token válido, todo esto con el usuario administrator cambiado en el payload
@@ -166,8 +178,11 @@ A veces los jwt tokens están expuestos en directorios como `/.well-known/jwks.j
 2. Cambia el valor del parámetro kid de tu token al de la llave RSA generada
 3. Añade un nuevo parámetro `jku` en el header y pon en el valor la url del servidor malicioso
 4. En la extensión JSON Web Token pulsa "sign"
+
 <img width="83" height="28" alt="image" src="https://github.com/user-attachments/assets/4bfe75a1-8d51-43c8-9c96-e7913c5a5a7d" />
+
 5. pulsamos ok
+
 <img width="493" height="370" alt="image" src="https://github.com/user-attachments/assets/71e39e30-56b5-42df-94b4-0dbb6d15da79" />
 
 ### kid header
@@ -188,4 +203,5 @@ Si hacemos path traversal a `/dev/null` entonces el token se firmará con un str
 La symmetric key con la que firmemos el token se tiene que ver así en el campo k :
 
 <img width="612" height="495" alt="image" src="https://github.com/user-attachments/assets/782e7848-9eff-4768-b097-010908a8d17d" />
+
 Esto es porque AA== es un carácter nulo 
