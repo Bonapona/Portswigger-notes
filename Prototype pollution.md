@@ -1,4 +1,4 @@
-Prototype pollution
+# Prototype pollution
 
 ## Intro
 
@@ -48,7 +48,7 @@ Estos built-in prototypes tienen sus propios métodos y propiedades, por ejemplo
 ### Herencia en JavaScript
 
 En javascript cuando referencias una propiedad de un objeto, el motor de javascript intentará acceder directamente a la propiedad del objeto, si esta propiedad no está en el objeto entonces lo buscara en su prototype, esto te dejará hacer `myObject.propertyA` 
-![[Pasted image 20251208001157.png]]
+<img width="215" height="321" alt="image" src="https://github.com/user-attachments/assets/6d628ff8-36a8-4945-aefa-e018bd2f0169" />
 
 
 ### Acceder al prototype de un objeto usando ` __proto__`
