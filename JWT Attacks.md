@@ -152,11 +152,11 @@ Idealmente un servidor solo usará una whitelist de public keys para verificar e
 
 <img width="476" height="52" alt="image" src="https://github.com/user-attachments/assets/bf3dc300-6e14-4aaa-b94e-241912231195" />
 
-6.Attack ->embebed jwk
+6. Attack ->embebed jwk
 
 <img width="82" height="30" alt="image" src="https://github.com/user-attachments/assets/0ac9885b-e54e-4de3-b1ea-6a5c5115cc1d" />
 
-7.ok
+7. ok
 
 <img width="486" height="243" alt="image" src="https://github.com/user-attachments/assets/f9f0c0c4-2e07-4fbd-b15c-1aa39f0c70d6" />
 
