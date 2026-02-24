@@ -1,5 +1,7 @@
 # GraphQL API vulns
 
+http://nathanrandal.com/graphql-visualizer/ -> la cabra
+
 ## Encontrar un endpoint de GraphQL
 
 
